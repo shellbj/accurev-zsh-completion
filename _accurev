@@ -1,0 +1,789 @@
+#compdef accurev
+
+# redefine _accurev.
+
+_accurev() {
+  _arguments -s \
+    '*::accurev command:_accurev_command'
+}
+
+# define accurev command dispatch function.
+
+(( $+functions[_accurev_command] )) ||
+_accurev_command() {
+  local cmd ret=1
+
+  if (( ! $+_accurev_cmds )); then
+    typeset -gA _accurev_cmds
+    _accurev_cmds=(
+	${=${(f)${(f)"$(accurev help all)"}[4,-4]/(((#s)accurev[[:space:]]#(#b)([a-z]##|{[a-z|]##})(#B)[[:space:]]#([a-zA-Z<>{} -|]|\[|\])##)|((#B)(#s)[[:space:]]##([<>{}|]|\[|\]|Formats)([a-zA-Z<>{} -|]|\[|\])##))/${match[1]:+${${${match[1]}//[{}]}//|[a-zA-Z|]##} :${${${match[1]//[{}]}//[[:space:]]}//|/:}:}}}
+    )
+  fi
+  if (( CURRENT == 1 )); then
+    _tags commands && { compadd "$@" -k _accurev_cmds || compadd "$@"  ${(s.:.)_accurev_cmds} }
+  else
+    local curcontext="$curcontext"
+
+    cmd="${${(k)_accurev_cmds[(R)*:$words[1]:*]}:-${(k)_accurev_cmds[(i):$words[1]:]}}"
+    if (( $#cmd )); then
+      curcontext="${curcontext%:*:*}:accurev-${cmd}:"
+      _call_function ret _accurev_$cmd || _message 'no more arguments'
+    else
+      _message "unknown accurev command: $words[1]"
+    fi
+    return ret
+  fi
+}
+
+# define completion functions for each accurev command
+
+(( $+functions[_accurev_add] )) ||
+_accurev_add() {
+    # "+c:E:x:R:l:"
+  _arguments -s \
+    '-c[Comment to associate with the transaction]:comment:_accurev_comment' \
+    '-E[Set the element type of the version to be created]:element type:_accurev_element_type' \
+    '-l[file containing names of elements to be processed]:list file:_accurev_l' \
+    '-R[recurse into subdirectories]' \
+    '-x[select files/dirs in workspace that are not under version control]' \
+    '*:added file:_accurev_element' \
+}
+
+(( $+functions[_accurev_addmember] )) ||
+_accurev_addmember() {
+    _message -e messages 'Not implemented : update later after show users and show groups is done'
+}
+
+(( $+functions[_accurev_anc] )) ||
+_accurev_anc() {
+    # "v:j:J:1:c"
+    _arguments -s \
+	'-c[Determine the common ancestor]: :' \
+	'-v[The version whose ancestor is to be determined]:version:' \
+	'-1[Determine the version that was in the workspace or stream just before the specified version was created]' \
+	'(-J)-j[determine the corresponding basis version]' \
+	'(-j)-J[This option is an alternative to -j when used in combination with -v]' \
+	'*:element:_accurev_element' \
+}
+
+(( $+functions[_accurev_anchor] )) ||
+_accurev_anchor() {
+    _arguments -s \
+	'-n[select modified non-anchored elements]' \
+	'-R[recurse into subdirectories]' \
+	'-l[file containing names of elements to be processed]:list file:_accurev_l' \
+	'*:added file:_accurev_files_unmaintained' \
+}
+
+(( $+functions[_accurev_annotate] )) ||
+_accurev_annotate() {
+    _arguments -s \
+	'-v[Version specifier]:version:_accurev_version_spec' \
+	'-f[Format]:format:_accurev_format' \
+	'*:element:_accurev_element' \
+}
+
+(( $+functions[_accurev_cat] )) ||
+_accurev_cat() {
+    _arguments -s \
+	'-v[Version specifier]:version:_accurev_version_spec' \
+	'-p[perform the operation using this depot]:depot:_accurev_depot' \
+	'-e[specify integer element-ID]:element id:_accurev_element_id' \
+	'*:element:_accurev_element' \
+}
+
+(( $+functions[_accurev_chdepot] )) ||
+_accurev_chdepot() {
+    _arguments -s \
+	'-p[perform the operation using this depot]:depot:_accurev_depot' \
+	'-ke[All workspaces for this depot will use exclusive file locking]' \
+	'-kd[Workspaces for this depot can be set, on an individual basis,to use or not use exclusive file locking]' \
+	'*:new depot:_accurev_new_depot_name' \
+}
+
+(( $+functions[_accurev_chgroup] )) ||
+_accurev_chgroup() {
+    _message -e meassges "$(accurev help $words[1])"
+}
+
+(( $+functions[_accurev_chmod] )) ||
+_accurev_chmod() {
+    _arguments -s \
+        '-c[Comment to associate with the transaction]:comment:_accurev_comment' \
+	'*:element:_accurev_element' \
+}
+
+(( $+functions[_accurev_chpasswd] )) ||
+_accurev_chpasswd() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_chref] )) ||
+_accurev_chref() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_chslice] )) ||
+_accurev_chslice() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_chstream] )) ||
+_accurev_chstream() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_chuser] )) ||
+_accurev_chuser() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_chws] )) ||
+_accurev_chws() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_clear] )) ||
+_accurev_clear() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_co] )) ||
+_accurev_co() {
+    _arguments -s \
+	'-t[transaction to reverse]:transaction:_accurev_transaction' \
+	'(-t)-v[Select a particular version]:version:_accurev_version_spec' \
+	'(-e -t)-l[file containing names of elements to be processed]:list file:_accurev_l' \
+	'(-l -t)-e[specify integer element-ID]:element id:_accurev_element_id' \
+	'(-t)-n[select modified non-member elements]' \
+	'*:file:_accurev_elements' \
+}
+
+(( $+functions[_accurev_cpkadd] )) ||
+_accurev_cpkadd() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_cpkdescribe] )) ||
+_accurev_cpkdescribe() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_cpkremove] )) ||
+_accurev_cpkremove() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_defunct] )) ||
+_accurev_defunct() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_diff] )) ||
+_accurev_diff() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_dir] )) ||
+_accurev_dir() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_excl] )) ||
+_accurev_excl() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_files] )) ||
+_accurev_files() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_help] )) ||
+_accurev_help() {
+    _arguments -s \
+    '*::accurev command:_accurev_command' \
+}
+
+(( $+functions[_accurev_hist] )) ||
+_accurev_hist() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_incl] )) ||
+_accurev_incl() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_incldo] )) ||
+_accurev_incldo() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_info] )) ||
+_accurev_info() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_ismember] )) ||
+_accurev_ismember() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_issuediff] )) ||
+_accurev_issuediff() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_issuelist] )) ||
+_accurev_issuelist() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_keep] )) ||
+_accurev_keep() {
+    _arguments -s \
+	'-c[Comment to associate with the transaction]:comment:_accurev_comment' \
+	'-E[Set the element type of the version to be created]:element type:_accurev_element_type' \
+	'-l[file containing names of elements to be processed]:list file:_accurev_l' \
+	'-d[select the members of the default group]' \
+	'-m[select modified elements]' \
+	'-n[select modified non-member elements]' \
+	'-O[Allows a keep operation on an element with a modification time earlier than the modification time of the ancestor]' \
+	'*:file:_accurev_elements' \
+}
+
+(( $+functions[_accurev_lock] )) ||
+_accurev_lock() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_lsacl] )) ||
+_accurev_lsacl() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_lsrules] )) ||
+_accurev_lsrules() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_merge] )) ||
+_accurev_merge() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_mergelist] )) ||
+_accurev_mergelist() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_mkdepot] )) ||
+_accurev_mkdepot() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_mkgroup] )) ||
+_accurev_mkgroup() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_mklinks] )) ||
+_accurev_mklinks() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_mkref] )) ||
+_accurev_mkref() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_mkreplica] )) ||
+_accurev_mkreplica() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_mksnap] )) ||
+_accurev_mksnap() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_mkstream] )) ||
+_accurev_mkstream() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_mktrig] )) ||
+_accurev_mktrig() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_mkuser] )) ||
+_accurev_mkuser() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_mkws] )) ||
+_accurev_mkws() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_move] )) ||
+_accurev_move() {
+    _message -e messages 'Not complete'
+    _arguments -s \
+	'-e[specify integer element-ID]:element id:_accurev_element_id' \
+	'*:file:_accurev_elements' \
+}
+
+(( $+functions[_accurev_name] )) ||
+_accurev_name() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_patch] )) ||
+_accurev_patch() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_patchlist] )) ||
+_accurev_patchlist() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_ping] )) ||
+_accurev_ping() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_pop] )) ||
+_accurev_pop() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_promote] )) ||
+_accurev_promote() {
+    _arguments -s \
+	'-c[Comment to associate with the transaction]:comment:_accurev_comment' \
+	'(-t -e)-l[file containing names of elements to be processed]:list file:_accurev_l' \
+	'(-k -p)-d[select the members of the default group]' \
+	'(-t -l)-e[specify integer element-ID]:element id:_accurev_element_id' \
+	'(-d -p)-k[select kept elements]' \
+	'-K[Keep modified elements before promoting them]' \
+	'(-d -k)-p[select both modified elements and kept elements]' \
+	'-g[Fill in gaps during change package promotion]' \
+	'-I[Add the promoted versions to the change package of the specified Dispatch issue record]:issue number:_accurev_issue_number' \
+	'-O[Promote even if the element has (overlap) status]' \
+	'-N[Suppress change package merge required error]' \
+	'(-l -e)-t[Promote the versions in the specified transaction]:transaction:_accurev_transaction' \
+	'*:file:_accurev_elements' \
+}
+
+(( $+functions[_accurev_purge] )) ||
+_accurev_purge() {
+    _arguments -s \
+	'-s[purge changes from a stream]:stream:_accurev_streams' \
+	'(-e)-l[file containing names of elements to be processed]:list file:_accurev_l' \
+	'(-l)-e[specify integer element-ID]:element id:_accurev_element_id' \
+	'*:file:_accurev_elements' \
+}
+
+(( $+functions[_accurev_reactivate] )) ||
+_accurev_reactivate() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_remove] )) ||
+_accurev_remove() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_replica] )) ||
+_accurev_replica() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_revert] )) ||
+_accurev_revert() {
+    _arguments -s \
+	'-t[transaction to reverse]:transaction:_accurev_transaction' \
+}
+
+(( $+functions[_accurev_rmmember] )) ||
+_accurev_rmmember() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_rmreplica] )) ||
+_accurev_rmreplica() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_rmtrig] )) ||
+_accurev_rmtrig() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_rmws] )) ||
+_accurev_rmws() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_setacl] )) ||
+_accurev_setacl() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_setlocalpasswd] )) ||
+_accurev_setlocalpasswd() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_show] )) ||
+_accurev_show() {
+    local curcontext="$curcontext"
+    if (( ! $+_accurev_show_cmds )); then
+	typeset -gA _accurev_show_cmds
+	_accurev_show_cmds=(
+			    streams :streams:
+			    wspaces :wspaces:
+			    depots :depots:
+			    )
+    fi
+    if (( CURRENT == 2 )); then
+	_tags -C show commands && { compadd "$@" -k _accurev_show_cmds || compadd "$@"  ${(s.:.)_accurev_show_cmds} }
+    else
+	cmd="${${(k)_accurev_show_cmds[(R)*:$words[2]:*]}:-${(k)_accurev_show_cmds[(i):$words[2]:]}}"
+	if (( $#cmd )); then
+	    curcontext="${curcontext%:*:*}:accurev-show-${cmd}:"
+	    _call_function ret _accurev_show_$cmd || _message 'no more arguments'
+	else
+	    _message "unknown accurev show command: $words[2]"
+	fi
+	return ret
+    fi
+}
+
+(( $+functions[_accurev_show_streams] )) ||
+_accurev_show_streams() {
+    _arguments -s \
+	'-f-[Output format]:style:_accurev_show_f' \
+	'-p[perform the operation using this depot]:depot:_accurev_depots' \
+	'-s[stream to work with]:stream:_accurev_streams' \
+	'-t[show the streams that existed at the specified time]:time:_accurev_timespec' \
+	'*:' \
+}
+
+(( $+functions[_accurev_show_wspaces] )) ||
+_accurev_show_wspaces() {
+    _arguments -s \
+	'-f-[Output format]:style:_accurev_show_f' \
+	'-a[Unkown option]' \
+	'*:' \
+}
+
+(( $+functions[_accurev_show_depots] )) ||
+_accurev_show_depots() {
+    _arguments -s \
+	'-fx[XML output]' \
+	'*:' \
+}
+
+(( $+functions[_accurev_show_f] )) ||
+_accurev_show_f() {
+    _values 'output format' \
+	'i[show invisible items]' \
+	'x[XML output]' \
+	'v[show license kind in show users]' \
+}
+
+(( $+functions[_accurev_depots] )) ||
+_accurev_depots() {
+    _message -e meassges "Not Implemented"
+}
+
+(( $+functions[_accurev_streams] )) ||
+_accurev_streams() {
+    _message -e meassges "Not Implemented"
+}
+
+(( $+functions[_accurev_timespec] )) ||
+_accurev_timespec() {
+    _message -e meassges "Not Implemented"
+}
+
+
+(( $+functions[_accurev_start] )) ||
+_accurev_start() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_stat] )) ||
+_accurev_stat() {
+    _arguments -s \
+	'(-l)-a[select all elements]' \
+	'(-s -x)-b[Show elements status in backing stream]' \
+	'(-x -b -s)-B[ Include elements status in streams in workspaces backing chain]' \
+	'(-x)-d[select the members of the default group]' \
+	'(-x)-D[select defunct elements]' \
+	'-f-[format]:format:_accurev_stat_format' \
+	'(-x)-i[select stranded elements]' \
+	'(-x -b -s)-k[select kept elements]' \
+	'-l[file containing names of elements to be processed]:list file:_accurev_l' \
+	'(-b -s -x)-m[select modified elements]' \
+	'(-b -s -x)-M[display missing files]' \
+	'(-b -s -x)-n[select modified non-member elements]' \
+	'(-x)-o[select overlapping elements]' \
+	'(-b -s -x)-O[do not use timestamp optimization]' \
+	'(-b -s -x)-p[select both modified elements and kept elements]' \
+	'(-b -s)-R[recurse through specified directorys]' \
+	'(-b -x)-s[stream]:stream:_accurev_streams' \
+	'(-a -b -B -d -D -i -k -m -n -o -p -s -X)-x[select files/dirs in workspace that are not under version control]' \
+	'(-b -s -x)-X[display excluded files]' \
+	'*:file:_accurev_elements' \
+}
+
+(( $+functions[_accurev_stat_format] )) ||
+_accurev_stat_format() {
+    _values 'Format to use' \
+	'(r)a[absolute]' \
+	'(a)r[relative]' \
+	'(d)f[files only]' \
+	'(f)d[dirs only]' \
+	'l[location only]' \
+	'e[element ID]' \
+	'k' \
+}
+
+
+(( $+functions[_accurev_synctim] )) ||
+_accurev_synctim() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_touch] )) ||
+_accurev_touch() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_translist] )) ||
+_accurev_translist() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_undefunct] )) ||
+_accurev_undefunct() {
+    _arguments -s \
+	'(-e)-l[file containing names of elements to be processed]:list file:_accurev_l' \
+	'(-l)-e[specify integer element-ID]:element id:_accurev_element_id' \
+	'*:file:_accurev_elements' \
+}
+
+(( $+functions[_accurev_unlock] )) ||
+_accurev_unlock() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_update] )) ||
+_accurev_update() {
+    _arguments -s \
+	'-i[display information only]' \
+	'-r[reference tree to update]:tree:_accurev_tree' \
+	'-t[update up to specific transaction]:transaction:_accurev_transaction' \
+}
+
+(( $+functions[_accurev_wip] )) ||
+_accurev_wip() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_xml] )) ||
+_accurev_xml() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
+}
+
+(( $+functions[_accurev_version_spec] )) ||
+_accurev_version_spec() {
+    _message -e messages "Not implemented"
+}
+
+(( $+functions[_accurev_depot] )) ||
+_accurev_depot() {
+    _message -e messages "Not implemented"
+}
+
+(( $+functions[_accurev_new_depot_name] )) ||
+_accurev_new_depot_name () {
+    _message -e messages "Not implemented"
+}
+
+(( $+functions[_accurev_format] )) ||
+_accurev_format() {
+    _values 'Format to use' \
+	'd[date]' \
+	't[transaction number]' \
+	'u[user name]' \
+}
+
+(( $+functions[_accurev_element] )) ||
+_accurev_element() {
+    _message -e messages 'Not finished'
+    _wanted files expl 'Element to lookup' _path_files
+}
+
+
+(( $+functions[_accurev_comment] )) ||
+_accurev_comment() {
+  _message -e messages "transaction message"
+}
+
+(( $+functions[_accurev_element_type] )) ||
+_accurev_element_type() {
+  _values 'element type created' \
+    'binary[versions cannot be combined with merge]' \
+    'text[versions can be combined with merge, line terminators are normalized to NLs in the repo]' \
+    'ptext[perserved test: mergeable, but no line terminator translations]' 
+}
+
+(( $+functions[_accurev_l] )) ||
+_accurev_l() {
+    local expl
+    _wanted files expl 'File containing files to be processed' _path_files
+}
+
+(( $+functions[_accurev_elements] )) ||
+_accurev_elements() {
+    local expl
+    _message -e messages 'Not completely implemented'
+    _wanted file expl 'Element to operate on' _path_files
+}
+
+
+(( $+functions[_accurev_files_unmaintained] )) ||
+_accurev_files_unmaintained() {
+    _accurev_existing_directories
+}
+
+(( $+functions[_accurev_existing_directories] )) ||
+_accurev_existing_directories() {
+  local expl
+  _wanted directories expl directory _path_files
+}
+
+_accurev "$@"
