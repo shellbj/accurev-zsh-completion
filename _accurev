@@ -103,7 +103,8 @@ _accurev_chdepot() {
 
 (( $+functions[_accurev_chgroup] )) ||
 _accurev_chgroup() {
-    _message -e meassges "$(accurev help $words[1])"
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_chmod] )) ||
@@ -115,51 +116,44 @@ _accurev_chmod() {
 
 (( $+functions[_accurev_chpasswd] )) ||
 _accurev_chpasswd() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_chref] )) ||
 _accurev_chref() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_chslice] )) ||
 _accurev_chslice() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_chstream] )) ||
 _accurev_chstream() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_chuser] )) ||
 _accurev_chuser() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_chws] )) ||
 _accurev_chws() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_clear] )) ||
 _accurev_clear() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_co] )) ||
@@ -175,58 +169,50 @@ _accurev_co() {
 
 (( $+functions[_accurev_cpkadd] )) ||
 _accurev_cpkadd() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_cpkdescribe] )) ||
 _accurev_cpkdescribe() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_cpkremove] )) ||
 _accurev_cpkremove() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_defunct] )) ||
 _accurev_defunct() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_diff] )) ||
 _accurev_diff() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_dir] )) ||
 _accurev_dir() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_excl] )) ||
 _accurev_excl() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_files] )) ||
 _accurev_files() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_help] )) ||
@@ -237,51 +223,44 @@ _accurev_help() {
 
 (( $+functions[_accurev_hist] )) ||
 _accurev_hist() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_incl] )) ||
 _accurev_incl() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_incldo] )) ||
 _accurev_incldo() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_info] )) ||
 _accurev_info() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_ismember] )) ||
 _accurev_ismember() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_issuediff] )) ||
 _accurev_issuediff() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_issuelist] )) ||
 _accurev_issuelist() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_keep] )) ||
@@ -299,107 +278,92 @@ _accurev_keep() {
 
 (( $+functions[_accurev_lock] )) ||
 _accurev_lock() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_lsacl] )) ||
 _accurev_lsacl() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_lsrules] )) ||
 _accurev_lsrules() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_merge] )) ||
 _accurev_merge() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_mergelist] )) ||
 _accurev_mergelist() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_mkdepot] )) ||
 _accurev_mkdepot() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_mkgroup] )) ||
 _accurev_mkgroup() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_mklinks] )) ||
 _accurev_mklinks() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_mkref] )) ||
 _accurev_mkref() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_mkreplica] )) ||
 _accurev_mkreplica() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_mksnap] )) ||
 _accurev_mksnap() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_mkstream] )) ||
 _accurev_mkstream() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_mktrig] )) ||
 _accurev_mktrig() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_mkuser] )) ||
 _accurev_mkuser() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_mkws] )) ||
 _accurev_mkws() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_move] )) ||
@@ -412,37 +376,32 @@ _accurev_move() {
 
 (( $+functions[_accurev_name] )) ||
 _accurev_name() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_patch] )) ||
 _accurev_patch() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_patchlist] )) ||
 _accurev_patchlist() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_ping] )) ||
 _accurev_ping() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_pop] )) ||
 _accurev_pop() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_promote] )) ||
@@ -474,23 +433,20 @@ _accurev_purge() {
 
 (( $+functions[_accurev_reactivate] )) ||
 _accurev_reactivate() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_remove] )) ||
 _accurev_remove() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_replica] )) ||
 _accurev_replica() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_revert] )) ||
@@ -501,44 +457,38 @@ _accurev_revert() {
 
 (( $+functions[_accurev_rmmember] )) ||
 _accurev_rmmember() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_rmreplica] )) ||
 _accurev_rmreplica() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_rmtrig] )) ||
 _accurev_rmtrig() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_rmws] )) ||
 _accurev_rmws() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_setacl] )) ||
 _accurev_setacl() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_setlocalpasswd] )) ||
 _accurev_setlocalpasswd() {
-    _message -e meassges "$(accurev help $words[1])"
-    _arguments -s \
-	'*:file:_path_files' \
+    local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 (( $+functions[_accurev_show] )) ||
@@ -784,6 +734,14 @@ _accurev_files_unmaintained() {
 _accurev_existing_directories() {
   local expl
   _wanted directories expl directory _path_files
+}
+
+## default action
+(( $+functions[_accurev_default_action] )) ||
+_accurev_default_action() {
+    _message -e meassges "$(accurev help $words[1])"
+    _arguments -s \
+	'*:file:_path_files' \
 }
 
 _accurev "$@"
