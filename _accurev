@@ -745,3 +745,8 @@ _accurev_default_action() {
 }
 
 _accurev "$@"
+
+## Local Variables:
+## mode: shell-script
+## sh-shell: zsh
+## End:
