@@ -134,8 +134,15 @@ _accurev_chslice() {
 
 (( $+functions[_accurev_chstream] )) ||
 _accurev_chstream() {
-    local ret
-    _call_function ret _accurev_default_action || _message 'unable to find default action'
+    args+=(
+	'-s[stream to work with]:stream:'
+	'(*)-b[new backing stream]:backing stream:'
+	'(*)-t[new basis time for the stream]:time:'
+    )
+
+    args+=( '*:NEW NAME:_files -/' )
+
+    _arguments -s "$args[@]" && ret=0
 }
 
 (( $+functions[_accurev_chuser] )) ||
