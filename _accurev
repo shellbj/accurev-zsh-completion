@@ -16,7 +16,8 @@ _accurev_command() {
   if (( ! $+_accurev_cmds )); then
     typeset -gA _accurev_cmds
     _accurev_cmds=(
-	${=${(f)${(f)"$(accurev help all)"}[4,-4]/(((#s)accurev[[:space:]]#(#b)([a-z]##|{[a-z|]##})(#B)[[:space:]]#([a-zA-Z<>{} -|]|\[|\])##)|((#B)(#s)[[:space:]]##([<>{}|]|\[|\]|Formats)([a-zA-Z<>{} -|]|\[|\])##))/${match[1]:+${${${match[1]}//[{}]}//|[a-zA-Z|]##} :${${${match[1]//[{}]}//[[:space:]]}//|/:}:}}}
+	${=${${(L)${(f)"$(accurev help all)"}/^([[:upper:]]##)}/(#b)([[:lower:]]##)(#B)/$match[1] :$match[1]:}}
+	help :help:
     )
   fi
   if (( CURRENT == 1 )); then
