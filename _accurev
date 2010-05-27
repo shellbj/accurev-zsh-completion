@@ -234,40 +234,21 @@ _accurev_help() {
 
 (( $+functions[_accurev_hist] )) ||
 _accurev_hist() {
-    _arguments -s \
-	'(-e -p)-a[all elements in the depot]' \
-	'(-e -a)-p[depot to work with]' \
-	'(-p -a)-e[element id]' \
-	'-f-[format]:format:__accurev_hist_f_format' \
-	'-t[transaction range]' \
-	'-k-[only show specific transaction types]:type:__accurev_hist_k_format' \
-	'(-p)-u[only transactions from user]' \
-	'(-p)-s[stream to work with]' \
-	'-c[only transactions with this comment]' \
-	'(-a -e)*:file:_accurev_elements' \
-}
+    args+=(
+	'(* -e -p -a)-a[all elements in the depot]'
+	'(* -e -p -a)-e[element id]:element:'
+	'(* -e -p -a)-p[depot to work with]:depot:'
+	'*-f-[format]:format:((e\:Expanded v\:Verbose s\:Status t\:Transaction x\:XML))'
+	'-t[transaction range]:range:'
+	'-k-[only show specific transaction types]:type:(chstream keep promote mkstream purge add defunct move)'
+	'-u[only transactions from user]:user:'
+	'(-s -p)-s[stream to work with]:stream:'
+	'-c[only transactions with this comment]'
+    )
+    
+    args+=('*:file:_files -/')
 
-(( $+functions[__accurev_hist_k_format] )) ||
-__accurev_hist_k_format() {
-    _values 'Transaction type' \
-	'chstream' \
-	'keep' \
-	'promote' \
-	'mkstream' \
-	'purge' \
-	'add' \
-	'defunct' \
-	'move' \
-}
-
-(( $+functions[__accurev_hist_f_format] )) ||
-__accurev_hist_f_format() {
-    _values 'Format to use' \
-	'e[Expanded format]' \
-	'v[Verbose]' \
-	's[Status]' \
-	't[Transaction]' \
-	'x[XML format]' \
+    _arguments -s "$args[@]" && ret=0
 }
 
 (( $+functions[_accurev_incl] )) ||
