@@ -2,6 +2,8 @@
 
 # redefine _accurev.
 
+local curcontext="$curcontext" cmd args ret=1
+
 _accurev() {
   _arguments -s \
     '*::accurev command:_accurev_command'
@@ -11,8 +13,6 @@ _accurev() {
 
 (( $+functions[_accurev_command] )) ||
 _accurev_command() {
-  local cmd ret=1
-
   if (( ! $+_accurev_cmds )); then
     typeset -gA _accurev_cmds
     _accurev_cmds=(
@@ -22,8 +22,7 @@ _accurev_command() {
   if (( CURRENT == 1 )); then
     _tags commands && { compadd "$@" -k _accurev_cmds || compadd "$@"  ${(s.:.)_accurev_cmds} }
   else
-    local curcontext="$curcontext"
-
+    args=( '(-)'{--help,-h}'[show help message]' )
     cmd="${${(k)_accurev_cmds[(R)*:$words[1]:*]}:-${(k)_accurev_cmds[(i):$words[1]:]}}"
     if (( $#cmd )); then
       curcontext="${curcontext%:*:*}:accurev-${cmd}:"
@@ -146,8 +145,19 @@ _accurev_chuser() {
 
 (( $+functions[_accurev_chws] )) ||
 _accurev_chws() {
-    local ret
-    _call_function ret _accurev_default_action || _message 'unable to find default action'
+    args+=(
+	'(-s -w)-w[Workspace to change]:workspace:'
+	'(-s -w)-s[Workspace to change that belongs to another user]:workspace:'
+	'(*)-l[Location where the tree is moved to]:location:_path_files'
+	'(*)-b[Backing stream to use]:stream:'
+	'(*)-m[New hostname for the working tree]'
+	'(*)-e[Line terminator style]:line terminator:((d\:default u\:unix w\:windows))'
+	'(*)-k[Kind of workspace]:workspace locking:((d\:default e\:exclusive a\:anchor))'
+    )
+
+    args+=( '*:NEW NAME:_files -/' )
+
+    _arguments -s "$args[@]" && ret=0
 }
 
 (( $+functions[_accurev_clear] )) ||
