@@ -10,8 +10,6 @@ _accurev() {
 }
 
 # define accurev command dispatch function.
-
-(( $+functions[_accurev_command] )) ||
 _accurev_command() {
   if (( ! $+_accurev_cmds )); then
     typeset -gA _accurev_cmds
@@ -36,8 +34,6 @@ _accurev_command() {
 }
 
 # define completion functions for each accurev command
-
-(( $+functions[_accurev_add] )) ||
 _accurev_add() {
     # "+c:E:x:R:l:"
   _arguments -s \
@@ -49,12 +45,10 @@ _accurev_add() {
     '*:added file:_accurev_element' \
 }
 
-(( $+functions[_accurev_addmember] )) ||
 _accurev_addmember() {
     _message -e messages 'Not implemented : update later after show users and show groups is done'
 }
 
-(( $+functions[_accurev_anc] )) ||
 _accurev_anc() {
     # "v:j:J:1:c"
     _arguments -s \
@@ -66,7 +60,6 @@ _accurev_anc() {
 	'*:element:_accurev_element' \
 }
 
-(( $+functions[_accurev_anchor] )) ||
 _accurev_anchor() {
     _arguments -s \
 	'-n[select modified non-anchored elements]' \
@@ -75,7 +68,6 @@ _accurev_anchor() {
 	'*:added file:_accurev_files_unmaintained' \
 }
 
-(( $+functions[_accurev_annotate] )) ||
 _accurev_annotate() {
     _arguments -s \
 	'-v[Version specifier]:version:_accurev_version_spec' \
@@ -83,7 +75,6 @@ _accurev_annotate() {
 	'*:element:_accurev_element' \
 }
 
-(( $+functions[_accurev_cat] )) ||
 _accurev_cat() {
     _arguments -s \
 	'-v[Version specifier]:version:_accurev_version_spec' \
@@ -92,7 +83,6 @@ _accurev_cat() {
 	'*:element:_accurev_element' \
 }
 
-(( $+functions[_accurev_chdepot] )) ||
 _accurev_chdepot() {
     _arguments -s \
 	'-p[perform the operation using this depot]:depot:_accurev_depot' \
@@ -101,38 +91,32 @@ _accurev_chdepot() {
 	'*:new depot:_accurev_new_depot_name' \
 }
 
-(( $+functions[_accurev_chgroup] )) ||
 _accurev_chgroup() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_chmod] )) ||
 _accurev_chmod() {
     _arguments -s \
         '-c[Comment to associate with the transaction]:comment:_accurev_comment' \
 	'*:element:_accurev_element' \
 }
 
-(( $+functions[_accurev_chpasswd] )) ||
 _accurev_chpasswd() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_chref] )) ||
 _accurev_chref() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_chslice] )) ||
 _accurev_chslice() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_chstream] )) ||
 _accurev_chstream() {
     args+=(
 	'-s[stream to work with]:stream:'
@@ -145,13 +129,11 @@ _accurev_chstream() {
     _arguments -s "$args[@]" && ret=0
 }
 
-(( $+functions[_accurev_chuser] )) ||
 _accurev_chuser() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_chws] )) ||
 _accurev_chws() {
     args+=(
 	'(-s -w)-w[Workspace to change]:workspace:'
@@ -168,13 +150,11 @@ _accurev_chws() {
     _arguments -s "$args[@]" && ret=0
 }
 
-(( $+functions[_accurev_clear] )) ||
 _accurev_clear() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_co] )) ||
 _accurev_co() {
     _arguments -s \
 	'-t[transaction to reverse]:transaction:_accurev_transaction' \
@@ -185,31 +165,26 @@ _accurev_co() {
 	'*:file:_accurev_elements' \
 }
 
-(( $+functions[_accurev_cpkadd] )) ||
 _accurev_cpkadd() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_cpkdescribe] )) ||
 _accurev_cpkdescribe() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_cpkremove] )) ||
 _accurev_cpkremove() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_defunct] )) ||
 _accurev_defunct() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_diff] )) ||
 _accurev_diff() {
     args+=(
 	'(* -b -I -B -G -j)-a[all elements in the workspace]'
@@ -238,31 +213,26 @@ _accurev_diff() {
     _arguments -s "$args[@]" && ret=0
 }
 
-(( $+functions[_accurev_dir] )) ||
 _accurev_dir() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_excl] )) ||
 _accurev_excl() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_files] )) ||
 _accurev_files() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_help] )) ||
 _accurev_help() {
     _arguments -s \
     '*::accurev command:_accurev_command' \
 }
 
-(( $+functions[_accurev_hist] )) ||
 _accurev_hist() {
     args+=(
 	'(* -e -p -a)-a[all elements in the depot]'
@@ -281,43 +251,36 @@ _accurev_hist() {
     _arguments -s "$args[@]" && ret=0
 }
 
-(( $+functions[_accurev_incl] )) ||
 _accurev_incl() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_incldo] )) ||
 _accurev_incldo() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_info] )) ||
 _accurev_info() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_ismember] )) ||
 _accurev_ismember() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_issuediff] )) ||
 _accurev_issuediff() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_issuelist] )) ||
 _accurev_issuelist() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_keep] )) ||
 _accurev_keep() {
     _arguments -s \
 	'-c[Comment to associate with the transaction]:comment:_accurev_comment' \
@@ -330,97 +293,81 @@ _accurev_keep() {
 	'*:file:_accurev_elements' \
 }
 
-(( $+functions[_accurev_lock] )) ||
 _accurev_lock() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_lsacl] )) ||
 _accurev_lsacl() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_lsrules] )) ||
 _accurev_lsrules() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_merge] )) ||
 _accurev_merge() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_mergelist] )) ||
 _accurev_mergelist() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_mkdepot] )) ||
 _accurev_mkdepot() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_mkgroup] )) ||
 _accurev_mkgroup() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_mklinks] )) ||
 _accurev_mklinks() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_mkref] )) ||
 _accurev_mkref() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_mkreplica] )) ||
 _accurev_mkreplica() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_mksnap] )) ||
 _accurev_mksnap() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_mkstream] )) ||
 _accurev_mkstream() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_mktrig] )) ||
 _accurev_mktrig() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_mkuser] )) ||
 _accurev_mkuser() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_mkws] )) ||
 _accurev_mkws() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_move] )) ||
 _accurev_move() {
     _message -e messages 'Not complete'
     _arguments -s \
@@ -428,37 +375,31 @@ _accurev_move() {
 	'*:file:_accurev_elements' \
 }
 
-(( $+functions[_accurev_name] )) ||
 _accurev_name() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_patch] )) ||
 _accurev_patch() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_patchlist] )) ||
 _accurev_patchlist() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_ping] )) ||
 _accurev_ping() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_pop] )) ||
 _accurev_pop() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_promote] )) ||
 _accurev_promote() {
     _arguments -s \
 	'-c[Comment to associate with the transaction]:comment:_accurev_comment' \
@@ -476,7 +417,6 @@ _accurev_promote() {
 	'*:file:_accurev_elements' \
 }
 
-(( $+functions[_accurev_purge] )) ||
 _accurev_purge() {
     _arguments -s \
 	'-s[purge changes from a stream]:stream:_accurev_streams' \
@@ -485,67 +425,56 @@ _accurev_purge() {
 	'*:file:_accurev_elements' \
 }
 
-(( $+functions[_accurev_reactivate] )) ||
 _accurev_reactivate() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_remove] )) ||
 _accurev_remove() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_replica] )) ||
 _accurev_replica() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_revert] )) ||
 _accurev_revert() {
     _arguments -s \
 	'-t[transaction to reverse]:transaction:_accurev_transaction' \
 }
 
-(( $+functions[_accurev_rmmember] )) ||
 _accurev_rmmember() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_rmreplica] )) ||
 _accurev_rmreplica() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_rmtrig] )) ||
 _accurev_rmtrig() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_rmws] )) ||
 _accurev_rmws() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_setacl] )) ||
 _accurev_setacl() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_setlocalpasswd] )) ||
 _accurev_setlocalpasswd() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-(( $+functions[_accurev_show] )) ||
 _accurev_show() {
     local curcontext="$curcontext"
     if (( ! $+_accurev_show_cmds )); then
@@ -570,7 +499,6 @@ _accurev_show() {
     fi
 }
 
-(( $+functions[_accurev_show_streams] )) ||
 _accurev_show_streams() {
     _arguments -s \
 	'-f-[Output format]:style:_accurev_show_f' \
@@ -580,7 +508,6 @@ _accurev_show_streams() {
 	'*:' \
 }
 
-(( $+functions[_accurev_show_wspaces] )) ||
 _accurev_show_wspaces() {
     _arguments -s \
 	'-f-[Output format]:style:_accurev_show_f' \
@@ -588,14 +515,12 @@ _accurev_show_wspaces() {
 	'*:' \
 }
 
-(( $+functions[_accurev_show_depots] )) ||
 _accurev_show_depots() {
     _arguments -s \
 	'-fx[XML output]' \
 	'*:' \
 }
 
-(( $+functions[_accurev_show_f] )) ||
 _accurev_show_f() {
     _values 'output format' \
 	'i[show invisible items]' \
@@ -603,30 +528,25 @@ _accurev_show_f() {
 	'v[show license kind in show users]' \
 }
 
-(( $+functions[_accurev_depots] )) ||
 _accurev_depots() {
     _message -e meassges "Not Implemented"
 }
 
-(( $+functions[_accurev_streams] )) ||
 _accurev_streams() {
     _message -e meassges "Not Implemented"
 }
 
-(( $+functions[_accurev_timespec] )) ||
 _accurev_timespec() {
     _message -e meassges "Not Implemented"
 }
 
 
-(( $+functions[_accurev_start] )) ||
 _accurev_start() {
     _message -e meassges "$(accurev help $words[1])"
     _arguments -s \
 	'*:file:_path_files' \
 }
 
-(( $+functions[_accurev_stat] )) ||
 _accurev_stat() {
     _arguments -s \
 	'(-l)-a[select all elements]' \
@@ -651,7 +571,6 @@ _accurev_stat() {
 	'*:file:_accurev_elements' \
 }
 
-(( $+functions[_accurev_stat_format] )) ||
 _accurev_stat_format() {
     _values 'Format to use' \
 	'(r)a[absolute]' \
@@ -663,29 +582,24 @@ _accurev_stat_format() {
 	'k' \
 }
 
-
-(( $+functions[_accurev_synctim] )) ||
 _accurev_synctim() {
     _message -e meassges "$(accurev help $words[1])"
     _arguments -s \
 	'*:file:_path_files' \
 }
 
-(( $+functions[_accurev_touch] )) ||
 _accurev_touch() {
     _message -e meassges "$(accurev help $words[1])"
     _arguments -s \
 	'*:file:_path_files' \
 }
 
-(( $+functions[_accurev_translist] )) ||
 _accurev_translist() {
     _message -e meassges "$(accurev help $words[1])"
     _arguments -s \
 	'*:file:_path_files' \
 }
 
-(( $+functions[_accurev_undefunct] )) ||
 _accurev_undefunct() {
     _arguments -s \
 	'(-e)-l[file containing names of elements to be processed]:list file:_accurev_l' \
@@ -693,14 +607,12 @@ _accurev_undefunct() {
 	'*:file:_accurev_elements' \
 }
 
-(( $+functions[_accurev_unlock] )) ||
 _accurev_unlock() {
     _message -e meassges "$(accurev help $words[1])"
     _arguments -s \
 	'*:file:_path_files' \
 }
 
-(( $+functions[_accurev_update] )) ||
 _accurev_update() {
     _arguments -s \
 	'-i[display information only]' \
@@ -708,36 +620,30 @@ _accurev_update() {
 	'-t[update up to specific transaction]:transaction:_accurev_transaction' \
 }
 
-(( $+functions[_accurev_wip] )) ||
 _accurev_wip() {
     _message -e meassges "$(accurev help $words[1])"
     _arguments -s \
 	'*:file:_path_files' \
 }
 
-(( $+functions[_accurev_xml] )) ||
 _accurev_xml() {
     _message -e meassges "$(accurev help $words[1])"
     _arguments -s \
 	'*:file:_path_files' \
 }
 
-(( $+functions[_accurev_version_spec] )) ||
 _accurev_version_spec() {
     _message -e messages "Not implemented"
 }
 
-(( $+functions[_accurev_depot] )) ||
 _accurev_depot() {
     _message -e messages "Not implemented"
 }
 
-(( $+functions[_accurev_new_depot_name] )) ||
 _accurev_new_depot_name () {
     _message -e messages "Not implemented"
 }
 
-(( $+functions[_accurev_format] )) ||
 _accurev_format() {
     _values 'Format to use' \
 	'd[date]' \
@@ -745,19 +651,15 @@ _accurev_format() {
 	'u[user name]' \
 }
 
-(( $+functions[_accurev_element] )) ||
 _accurev_element() {
     _message -e messages 'Not finished'
     _wanted files expl 'Element to lookup' _path_files
 }
 
-
-(( $+functions[_accurev_comment] )) ||
 _accurev_comment() {
   _message -e messages "transaction message"
 }
 
-(( $+functions[_accurev_element_type] )) ||
 _accurev_element_type() {
   _values 'element type created' \
     'binary[versions cannot be combined with merge]' \
@@ -765,33 +667,27 @@ _accurev_element_type() {
     'ptext[perserved test: mergeable, but no line terminator translations]' 
 }
 
-(( $+functions[_accurev_l] )) ||
 _accurev_l() {
     local expl
     _wanted files expl 'File containing files to be processed' _path_files
 }
 
-(( $+functions[_accurev_elements] )) ||
 _accurev_elements() {
     local expl
     _message -e messages 'Not completely implemented'
     _wanted file expl 'Element to operate on' _path_files
 }
 
-
-(( $+functions[_accurev_files_unmaintained] )) ||
 _accurev_files_unmaintained() {
     _accurev_existing_directories
 }
 
-(( $+functions[_accurev_existing_directories] )) ||
 _accurev_existing_directories() {
   local expl
   _wanted directories expl directory _path_files
 }
 
 ## default action
-(( $+functions[_accurev_default_action] )) ||
 _accurev_default_action() {
     _message -e meassges "$(accurev help $words[1])"
     _arguments -s \
