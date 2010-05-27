@@ -211,8 +211,31 @@ _accurev_defunct() {
 
 (( $+functions[_accurev_diff] )) ||
 _accurev_diff() {
-    local ret
-    _call_function ret _accurev_default_action || _message 'unable to find default action'
+    args+=(
+	'(* -b -I -B -G -j)-a[all elements in the workspace]'
+	'(-n -d)-d[only elements in the default group]'
+	'(-k -m)-k[only elements that have been kept]::Pattern:'
+	'(-k -m)-m[only elements that have been modified]'
+	'(-n -d)-n[only elements that have been modified and not in the default group]'
+	'-o[only elements with overlaps]'
+	'-p[only elements pending promotion]'
+	'(-1 -V -b)-b[diff from backing stream]'
+	'-v[diff from a particular version]:version spec:'
+	'(-1 -V -b -j)-V[diff to a particular version]:other version spec other:'
+	'(-V -1)-j[diff from the cbasis of the other specified version]'
+	'(-1 -V -b -j)-1[diff from the previous occupant]'
+	'-B[ignore blanks]'
+	'-c[Context diff]'
+	'-i[report IDs of the versions w/o diffing]'
+	'-I[ignore case]'
+	'-w[ignore whitespace]'
+	'-W[ignore existant changed whitespace; report new or removed]'
+	'(-a -c -w -W -I -B -G)-G[use a graphical tool]'
+    )
+
+    args+=( '*:File:_files -/' )
+
+    _arguments -s "$args[@]" && ret=0
 }
 
 (( $+functions[_accurev_dir] )) ||
