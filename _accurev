@@ -262,8 +262,10 @@ _accurev_incldo() {
 }
 
 _accurev_info() {
-    local ret
-    _call_function ret _accurev_default_action || _message 'unable to find default action'
+    args+=(
+	'-v[verbose output]'
+    )
+    _arguments -s "$args[@]" && ret=0
 }
 
 _accurev_ismember() {
