@@ -311,8 +311,21 @@ _accurev_lsrules() {
 }
 
 _accurev_merge() {
-    local ret
-    _call_function ret _accurev_default_action || _message 'unable to find default action'
+    args+=(
+        '(-G -B)-B[dry run w/ entire backing chain]'
+        '(-G -i)-i[dry run]'
+        '(-i -B -G)-G[use a graphical tool]'
+        '(-i -B -s -I -K)-K[auto keep]'
+        '(* -I -o)-o[merge overlaps]'
+        '(-s -I -O)-O[always use the workspace version]'
+        '(-O -o -v -s -K)-I[merge by change package]:issue number:'
+        '(-s -v)-v[merge from a particular version]:version spec:'
+        '(-v -s)-s[use this stream as a basis]:stream:'
+    )
+    
+    args+=('*:file:_files -/')
+
+    _arguments -s "$args[@]" && ret=0
 }
 
 _accurev_mergelist() {
