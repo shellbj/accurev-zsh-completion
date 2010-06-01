@@ -99,7 +99,20 @@ _accurev_cat() {
 }
 
 _accurev_archive() {
-    _call_function ret _accurev_default_action || _message 'unable to find default action'
+    args+=(
+        '-i[dry run]'
+        '-c[comment]:comment:'
+        '*-E[element type]:types:((text ptext binary all))'
+        '-s[stream]:stream:'
+        '(-a)*-I[Categories to include]:category:((depot snapshots deactivated))'
+        '(-I)-a[archive all versions]'
+	'-t[time specifier]:time specifier:'
+        '-R[recursive operation]'
+        '-Fx[list file is XML]'
+        '(*)-l[list file]:file:_files -/'
+	'*:element:_files -/'
+    )
+    _arguments -s "$args[@]" && ret=0
 }
 
 _accurev_authmethod() {
