@@ -349,8 +349,18 @@ _accurev_merge() {
 }
 
 _accurev_mergelist() {
-    _call_function ret _accurev_default_action || _message 'unable to find default action'
+    args+=(
+        '-s[source stream]:stream:'
+        '-S[destination stream]:stream:'
+        '-o[overlaps only]'
+        '-d[only default group in source]'
+        '-f-[format]:format:((l\:Locations x\:XML))'
+        '(*)-l[file containing names of elements to be processed]:list file:_files -/'
+        '*:file:_files -/'
+    )
+    _arguments -s "$args[@]" && ret=0
 }
+
 
 _accurev_mkdepot() {
     _call_function ret _accurev_default_action || _message 'unable to find default action'
