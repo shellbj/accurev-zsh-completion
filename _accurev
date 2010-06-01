@@ -34,6 +34,14 @@ _accurev_command() {
 }
 
 # define completion functions for each accurev command
+_accurev_addmember() {
+    args+=(
+        '1:user or group name:'
+        '2:group name:'
+    )
+    _arguments -s "$args[@]" && ret=0
+}
+
 _accurev_add() {
     # "+c:E:x:R:l:"
   _arguments -s \
@@ -43,10 +51,6 @@ _accurev_add() {
     '-R[recurse into subdirectories]' \
     '-x[select files/dirs in workspace that are not under version control]' \
     '*:added file:_accurev_element' \
-}
-
-_accurev_addmember() {
-    _message -e messages 'Not implemented : update later after show users and show groups is done'
 }
 
 _accurev_anc() {
