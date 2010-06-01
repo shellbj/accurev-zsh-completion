@@ -82,10 +82,12 @@ _accurev_anc() {
 }
 
 _accurev_annotate() {
-    _arguments -s \
-	'-v[Version specifier]:version:_accurev_version_spec' \
-	'-f[Format]:format:_accurev_format' \
-	'*:element:_accurev_element' \
+    args+=(
+	'(-v)-v[Version specifier]:version specifier:'
+	'*-f-[Format]:format:((t\:Transaction u\:User d\:Date v\:Version))'
+	'*:element:_files -/'
+    )
+    _arguments -s "$args[@]" && ret=0
 }
 
 _accurev_cat() {
