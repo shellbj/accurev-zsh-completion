@@ -83,6 +83,18 @@ _accurev_cat() {
 	'*:element:_accurev_element' \
 }
 
+_accurev_archive() {
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
+_accurev_authmethod() {
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
+_accurev_backup() {
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
 _accurev_chdepot() {
     _arguments -s \
 	'-p[perform the operation using this depot]:depot:_accurev_depot' \
@@ -170,6 +182,10 @@ _accurev_cpkadd() {
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
+_accurev_cpkdepend() {
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
 _accurev_cpkdescribe() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
@@ -182,6 +198,10 @@ _accurev_cpkremove() {
 
 _accurev_defunct() {
     local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
+_accurev_diag() {
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
@@ -213,11 +233,6 @@ _accurev_diff() {
     _arguments -s "$args[@]" && ret=0
 }
 
-_accurev_dir() {
-    local ret
-    _call_function ret _accurev_default_action || _message 'unable to find default action'
-}
-
 _accurev_excl() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
@@ -225,6 +240,14 @@ _accurev_excl() {
 
 _accurev_files() {
     local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
+_accurev_getconfig() {
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
+_accurev_getpref() {
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
@@ -295,8 +318,24 @@ _accurev_keep() {
 	'*:file:_accurev_elements' \
 }
 
+_accurev_licenses() {
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
+_accurev_ln() {
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
 _accurev_lock() {
     local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
+_accurev_login() {
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
+_accurev_logout() {
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
@@ -358,6 +397,10 @@ _accurev_mkreplica() {
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
+_accurev_mkrules() {
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
 _accurev_mksnap() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
@@ -405,11 +448,6 @@ _accurev_patchlist() {
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
-_accurev_ping() {
-    local ret
-    _call_function ret _accurev_default_action || _message 'unable to find default action'
-}
-
 _accurev_pop() {
     local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
@@ -440,8 +478,16 @@ _accurev_purge() {
 	'*:file:_accurev_elements' \
 }
 
+_accurev_putconfig() {
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
 _accurev_reactivate() {
     local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
+_accurev_reclaim() {
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
@@ -477,6 +523,10 @@ _accurev_rmtrig() {
 
 _accurev_rmws() {
     local ret
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
+_accurev_secinfo() {
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
@@ -597,7 +647,7 @@ _accurev_stat_format() {
 	'k' \
 }
 
-_accurev_synctim() {
+_accurev_synctime() {
     _message -e meassges "$(accurev help $words[1])"
     _arguments -s \
 	'*:file:_path_files' \
@@ -615,6 +665,10 @@ _accurev_translist() {
 	'*:file:_path_files' \
 }
 
+_accurev_unarchive() {
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
+}
+
 _accurev_undefunct() {
     _arguments -s \
 	'(-e)-l[file containing names of elements to be processed]:list file:_accurev_l' \
@@ -626,6 +680,10 @@ _accurev_unlock() {
     _message -e meassges "$(accurev help $words[1])"
     _arguments -s \
 	'*:file:_path_files' \
+}
+
+_accurev_unmap() {
+    _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
 _accurev_update() {
