@@ -15,6 +15,7 @@ _accurev_command() {
     typeset -gA _accurev_cmds
     _accurev_cmds=(
 	${=${${(L)${(f)"$(accurev help all)"}/^([[:upper:]]##)}/(#b)([[:lower:]]##)(#B)/$match[1] :$match[1]:}}
+        authmethod :authmethod:
 	help :help:
     )
   fi
@@ -116,7 +117,10 @@ _accurev_archive() {
 }
 
 _accurev_authmethod() {
-    _call_function ret _accurev_default_action || _message 'unable to find default action'
+    args+=(
+        '1:method:((accurev_login traditional custom))'
+    )
+    _arguments -s "$args[@]" && ret=0
 }
 
 _accurev_backup() {
