@@ -57,14 +57,16 @@ _accurev_add() {
 }
 
 _accurev_anc() {
-    # "v:j:J:1:c"
-    _arguments -s \
-	'-c[Determine the common ancestor]: :' \
-	'-v[The version whose ancestor is to be determined]:version:' \
-	'-1[Determine the version that was in the workspace or stream just before the specified version was created]' \
-	'(-J)-j[determine the corresponding basis version]' \
-	'(-j)-J[This option is an alternative to -j when used in combination with -v]' \
-	'*:element:_accurev_element' \
+    args+=(
+        '(-j -J -1 -c)-c[common ancestor]'
+        '*-f-[format]:format:((x\:XML))'
+        '(-J -c -j)-j[determine the corresponding basis version]'
+        '(-j -c -J)-J[determine basis or merged direct ancestor]'
+        '(-j -J -c -1)-1[version in the stream just before]'
+        '(-v)-v[version to work with]:version:'
+        '*:element:_files -/'
+    )
+    _arguments -s "$args[@]" && ret=0
 }
 
 _accurev_anchor() {
