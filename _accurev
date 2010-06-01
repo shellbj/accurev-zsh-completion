@@ -91,14 +91,6 @@ _accurev_annotate() {
     _arguments -s "$args[@]" && ret=0
 }
 
-_accurev_cat() {
-    _arguments -s \
-	'-v[Version specifier]:version:_accurev_version_spec' \
-	'-p[perform the operation using this depot]:depot:_accurev_depot' \
-	'-e[specify integer element-ID]:element id:_accurev_element_id' \
-	'*:element:_accurev_element' \
-}
-
 _accurev_archive() {
     args+=(
         '-i[dry run]'
@@ -126,6 +118,17 @@ _accurev_authmethod() {
 _accurev_backup() {
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
+
+_accurev_cat() {
+    args+=(
+	'-v[Version specifier]:version:'
+	'-p[perform the operation using this depot]:depot:'
+	'(*)-e[specify integer element-ID]:element id:'
+	'*:element:_accurev_element'
+    )
+    _arguments -s "$args[@]" && ret=0
+}
+
 
 _accurev_chdepot() {
     _arguments -s \
