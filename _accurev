@@ -131,11 +131,13 @@ _accurev_cat() {
 
 
 _accurev_chdepot() {
-    _arguments -s \
-	'-p[perform the operation using this depot]:depot:_accurev_depot' \
-	'-ke[All workspaces for this depot will use exclusive file locking]' \
-	'-kd[Workspaces for this depot can be set, on an individual basis,to use or not use exclusive file locking]' \
-	'*:new depot:_accurev_new_depot_name' \
+    args+=(
+	'-p[perform the operation using this depot]:depot:'
+	'(* -kd)-ke[Enable depot-wide exclusive file locking]'
+	'(* -ke)-kd[Disable depot-wide exclusive file locking]'
+	'*:new depot name:'
+    )
+    _arguments -s "$args[@]" && ret=0
 }
 
 _accurev_chgroup() {
