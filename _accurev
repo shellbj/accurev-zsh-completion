@@ -63,8 +63,8 @@ _accurev_anchor() {
         '-E[Set the element type of the version to be created]:element type:((text ptext binary serial parallel))'
         '-n[select modified but not default elements]'
         '-R[recurse into subdirectories]'
-        '(*)-l[file containing names of elements to be processed]:list file:_files -/'
-        '*:element list:_files -/'
+        '(*)-l[file containing names of elements to be processed]:list file:_files'
+        '(-l)*:element list:_files'
     )
     _arguments -s "$args[@]" && ret=0
 }
