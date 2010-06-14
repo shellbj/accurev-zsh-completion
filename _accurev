@@ -22,7 +22,7 @@ _accurev_command() {
   if (( CURRENT == 1 )); then
     _tags commands && { compadd "$@" -k _accurev_cmds || compadd "$@"  ${(s.:.)_accurev_cmds} }
   else
-    args=( '(-)'{--help,-h}'[show help message]' )
+    args=( '-h[show help message]' )
     cmd="${${(k)_accurev_cmds[(R)*:$words[1]:*]}:-${(k)_accurev_cmds[(i):$words[1]:]}}"
     if (( $#cmd )); then
       curcontext="${curcontext%:*:*}:accurev-${cmd}:"
