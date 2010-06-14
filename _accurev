@@ -47,12 +47,12 @@ _accurev_add() {
     args+=(
         '-c[Commit message]:comment:'
         '-E[Set the element type of the version to be created]:element type:((text ptext binary serial parallel))'
-        '(*)-l[file containing names of elements to be processed]:list file:_files -/'
+        '(*)-l[file containing names of elements to be processed]:list file:_files'
         '-R[recurse into all subdirectories]'
         '-x[select external elements]'
         '-fi[include even if ignored]'
         '-s[create symlinks]'
-        '*:files or directories:_files -/'
+        '(-l)*:files or directories:_files'
     )
     _arguments -s "$args[@]" && ret=0
 }
