@@ -24,7 +24,7 @@ _accurev_command() {
   if (( CURRENT == 1 )); then
     _tags commands && { compadd "$@" -k _accurev_cmds || compadd "$@"  ${(s.:.)_accurev_cmds} }
   else
-    args=( '-h[show help message]' )
+    args=( '(-)'{--help,-h}'[show help message]' )
     cmd="${${(k)_accurev_cmds[(R)*:$words[1]:*]}:-${(k)_accurev_cmds[(i):$words[1]:]}}"
     if (( $#cmd )); then
       curcontext="${curcontext%:*:*}:accurev-${cmd}:"
@@ -153,7 +153,6 @@ _accurev_chdepot() {
 
 (( $+functions[_accurev_chgroup] )) ||
 _accurev_chgroup() {
-    local ret
     _call_function ret _accurev_default_action || _message 'unable to find default action'
 }
 
@@ -820,7 +819,7 @@ _accurev_depot() {
 }
 
 (( $+functions[_accurev_new_depot_name] )) ||
-_accurev_new_depot_name () {
+_accurev_new_depot_name() {
     _message -e messages "Not implemented"
 }
 
